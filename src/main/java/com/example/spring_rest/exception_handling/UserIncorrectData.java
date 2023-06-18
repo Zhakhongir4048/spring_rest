@@ -2,17 +2,17 @@ package com.example.spring_rest.exception_handling;
 
 public class UserIncorrectData {
 
-  private String info;
+    private String info;
 
-  public UserIncorrectData() {
-  }
+    public UserIncorrectData() {
+    }
 
-  public String getInfo() {
-    return info;
-  }
+    public String getInfo() {
+        return info;
+    }
 
-  public void setInfo(String info) {
-    this.info = info;
-  }
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
 }

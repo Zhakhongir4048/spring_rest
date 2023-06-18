@@ -19,48 +19,48 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class UserController {
 
-  private final UserService userService;
+    private final UserService userService;
 
-  @Autowired
-  public UserController(UserService userService) {
-    this.userService = userService;
-  }
-
-  @GetMapping("/users")
-  public List<User> getAllUsers() {
-    return userService.getAllUsers();
-  }
-
-  @GetMapping("/users/{userid}")
-  public User getUser(@PathVariable("userid") int id) {
-    User user = userService.getUser(id);
-    if (Objects.isNull(user)) {
-      throw new NoSuchUserException("There is no employee with ID = " + id + " in Database");
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
-    return user;
-  }
 
-  // Аннотация @RequestBody связывает тело HTTP метода с параметром метода Controller-а
-  @PostMapping("/users")
-  public User addUser(@RequestBody User user) {
-    userService.saveUser(user);
-    return getUser(user.getId());
-  }
-
-  @PutMapping("/users")
-  public User updateUser(@RequestBody User user) {
-    userService.saveUser(user);
-    return user;
-  }
-
-  @DeleteMapping("/users/{userid}")
-  public String deleteUser(@PathVariable("userid") int id) {
-    User user = userService.getUser(id);
-    if (Objects.nonNull(user)) {
-      userService.deleteUser(id);
-      return "User with ID = " + id + " was deleted";
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
-    throw new NoSuchUserException("There is no employee with ID = " + id + " in Database");
-  }
+
+    @GetMapping("/users/{userid}")
+    public User getUser(@PathVariable("userid") int id) {
+        User user = userService.getUser(id);
+        if (Objects.isNull(user)) {
+            throw new NoSuchUserException("There is no employee with ID = " + id + " in Database");
+        }
+        return user;
+    }
+
+    // Аннотация @RequestBody связывает тело HTTP метода с параметром метода Controller-а
+    @PostMapping("/users")
+    public User addUser(@RequestBody User user) {
+        userService.saveUser(user);
+        return getUser(user.getId());
+    }
+
+    @PutMapping("/users")
+    public User updateUser(@RequestBody User user) {
+        userService.saveUser(user);
+        return user;
+    }
+
+    @DeleteMapping("/users/{userid}")
+    public String deleteUser(@PathVariable("userid") int id) {
+        User user = userService.getUser(id);
+        if (Objects.nonNull(user)) {
+            userService.deleteUser(id);
+            return "User with ID = " + id + " was deleted";
+        }
+        throw new NoSuchUserException("There is no employee with ID = " + id + " in Database");
+    }
 
 }
